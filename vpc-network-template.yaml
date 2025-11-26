@@ -19,6 +19,11 @@ Parameters:
       - Development
     Description: Environment name for VPC2
 
+  UbuntuAmi:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id
+  
+
 Resources:
   VPC1:
     Type: AWS::EC2::VPC
@@ -235,6 +240,7 @@ Outputs:
     Export:
       Name: !Sub '${AWS::StackName}-VPC1-Id'
 
+
   VPC1PublicSubnetId:
     Description: Public Subnet ID for VPC1
     Value: !Ref VPC1PublicSubnet
@@ -265,3 +271,72 @@ Outputs:
     Export:
       Name: !Sub '${AWS::StackName}-VPC2-Private-Subnet-Id'
 
+  VPC1EC2PublicIP:
+    Value: !GetAtt VPC1EC2Instance.PublicIp
+
+  VPC2EC2PublicIP:
+    Value: !GetAtt VPC2EC2Instance.PublicIp
+     
+
+
+# An update cf-template to create ec2 instance in each of the vpc's
+
+    VPC1EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH for VPC1 EC2
+      VpcId: !Ref VPC1
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: VPC1-EC2-SG
+
+  VPC1EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: Ec2KeyPair
+      ImageId: !Ref UbuntuAmi
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          SubnetId: !Ref VPC1PublicSubnet
+          GroupSet:
+            - !Ref VPC1EC2SecurityGroup
+      Tags:
+        - Key: Name
+          Value: VPC1-EC2
+
+  VPC2EC2SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow SSH for VPC2 EC2
+      VpcId: !Ref VPC2
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: VPC2-EC2-SG
+
+  VPC2EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: Ec2KeyPair
+      ImageId: !Ref UbuntuAmi
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          SubnetId: !Ref VPC2PublicSubnet
+          GroupSet:
+            - !Ref VPC2EC2SecurityGroup
+      Tags:
+        - Key: Name
+          Value: VPC2-EC2
