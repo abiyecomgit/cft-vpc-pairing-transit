@@ -233,50 +233,7 @@ Resources:
         - Key: Environment
           Value: !Ref VPC2Environment
 
-Outputs:
-  VPC1Id:
-    Description: VPC ID for VPC1
-    Value: !Ref VPC1
-    Export:
-      Name: !Sub '${AWS::StackName}-VPC1-Id'
 
-
-  VPC1PublicSubnetId:
-    Description: Public Subnet ID for VPC1
-    Value: !Ref VPC1PublicSubnet
-    Export:
-      Name: !Sub '${AWS::StackName}-VPC1-Public-Subnet-Id'
-
-  VPC1PrivateSubnetId:
-    Description: Private Subnet ID for VPC1
-    Value: !Ref VPC1PrivateSubnet
-    Export:
-      Name: !Sub '${AWS::StackName}-VPC1-Private-Subnet-Id'
-
-  VPC2Id:
-    Description: VPC ID for VPC2
-    Value: !Ref VPC2
-    Export:
-      Name: !Sub '${AWS::StackName}-VPC2-Id'
-
-  VPC2PublicSubnetId:
-    Description: Public Subnet ID for VPC2
-    Value: !Ref VPC2PublicSubnet
-    Export:
-      Name: !Sub '${AWS::StackName}-VPC2-Public-Subnet-Id'
-
-  VPC2PrivateSubnetId:
-    Description: Private Subnet ID for VPC2
-    Value: !Ref VPC2PrivateSubnet
-    Export:
-      Name: !Sub '${AWS::StackName}-VPC2-Private-Subnet-Id'
-
-  VPC1EC2PublicIP:
-    Value: !GetAtt VPC1EC2Instance.PublicIp
-
-  VPC2EC2PublicIP:
-    Value: !GetAtt VPC2EC2Instance.PublicIp
-     
 
 
 # An update cf-template to create ec2 instance in each of the vpc's
@@ -340,3 +297,48 @@ Outputs:
       Tags:
         - Key: Name
           Value: VPC2-EC2
+
+Outputs:
+  VPC1Id:
+    Description: VPC ID for VPC1
+    Value: !Ref VPC1
+    Export:
+      Name: !Sub '${AWS::StackName}-VPC1-Id'
+
+
+  VPC1PublicSubnetId:
+    Description: Public Subnet ID for VPC1
+    Value: !Ref VPC1PublicSubnet
+    Export:
+      Name: !Sub '${AWS::StackName}-VPC1-Public-Subnet-Id'
+
+  VPC1PrivateSubnetId:
+    Description: Private Subnet ID for VPC1
+    Value: !Ref VPC1PrivateSubnet
+    Export:
+      Name: !Sub '${AWS::StackName}-VPC1-Private-Subnet-Id'
+
+  VPC2Id:
+    Description: VPC ID for VPC2
+    Value: !Ref VPC2
+    Export:
+      Name: !Sub '${AWS::StackName}-VPC2-Id'
+
+  VPC2PublicSubnetId:
+    Description: Public Subnet ID for VPC2
+    Value: !Ref VPC2PublicSubnet
+    Export:
+      Name: !Sub '${AWS::StackName}-VPC2-Public-Subnet-Id'
+
+  VPC2PrivateSubnetId:
+    Description: Private Subnet ID for VPC2
+    Value: !Ref VPC2PrivateSubnet
+    Export:
+      Name: !Sub '${AWS::StackName}-VPC2-Private-Subnet-Id'
+
+  VPC1EC2PublicIP:
+    Value: !GetAtt VPC1EC2Instance.PublicIp
+
+  VPC2EC2PublicIP:
+    Value: !GetAtt VPC2EC2Instance.PublicIp
+     
