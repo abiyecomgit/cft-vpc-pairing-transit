@@ -239,18 +239,18 @@ Resources:
 # An update cf-template to create ec2 instance in each of the vpc's
 
     VPC1EC2SecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: Allow SSH for VPC1 EC2
-      VpcId: !Ref VPC1
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp: 0.0.0.0/0
-      Tags:
-        - Key: Name
-          Value: VPC1-EC2-SG
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Allow SSH for VPC1 EC2
+        VpcId: !Ref VPC1
+        SecurityGroupIngress:
+          - IpProtocol: tcp
+            FromPort: 22
+            ToPort: 22
+            CidrIp: 0.0.0.0/0
+        Tags:
+          - Key: Name
+            Value: VPC1-EC2-SG
 
   VPC1EC2Instance:
     Type: AWS::EC2::Instance
