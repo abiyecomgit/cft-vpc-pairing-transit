@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'AWS VPC Network with 2 VPCs, each having 1 public and 1 private subnet in us-west-2 region'
+Description: 'AWS VPC Network with 2 VPCs, each having 1 public and 1 private subnet in us-west-1 region'
 
 Parameters:
   VPC1Environment:
