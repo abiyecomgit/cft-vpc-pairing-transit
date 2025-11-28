@@ -20,7 +20,7 @@ Parameters:
     Description: Environment name for VPC2
   KeyPairName:
     Type: String
-    Default: cft-key
+    Default: Ec2keypair
     Description: EC2 Key Pair name for SSH access
   UbuntuAMIId:
     Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
